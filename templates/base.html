@@ -1,0 +1,132 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .card {
+          margin: auto;
+          float: none;
+          margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static '/logos/logo.png' %}" width="30" height="30" alt="Logo">
+      </a>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'showAnimals' %}">Animals</a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profiles
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'showProfiles' %}">All Profiles</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Forms
+          </a>
+          
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'rescueForm' %}">Rescue Form</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'adoptionForm' %}">Adoption Form</a>
+          </div>
+        </li>
+
+        {% if user.is_staff %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Submitted Forms
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'submittedRescueForm' %}">Rescue Forms</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'submittedAdoptionForm' %}">Adoption Forms</a>
+            </div>
+          </li>
+        {% endif %}
+
+        {% if not user.profile %}
+          <li class="nav-item">
+           <a class="nav-link" href="{% url 'createProfile' %}">Create Your Profile</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/profiles/{{ user.profile.id }}">Hello, {{ user.profile.full_name }}</a>
+          </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
+        </li>
+
+      {% else %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+        </li>
+      {% endif %}
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'showAnimals' %}">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="search">Search</button>
+    </form>
+  </div>
+</nav>
+
+<body>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mt-3">
+        <div class="card text-center alert alert-{{ message.tags }}" style="width: 40rem;">
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="full-height">
+    {% block content %}
+
+    {% endblock content %}
+  </div>
+</body>
+
+<footer class="page-footer font-small teal bg-dark">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center text-warning py-5">© Animal Rescue and Adoption System | All Rights Reserved.</div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>
