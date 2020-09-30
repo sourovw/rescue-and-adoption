@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Animal Info</title>
+
+<div class="card text-center mt-3 border-info" style="width: 40rem;">
+    <div class="card-header bg-dark text-white mb-3">
+        Animal Info
+    </div>
+
+    <div class="card text-center" style="width: 25rem;">
+        <img class="card-img-top" src="{{ result.picture.url }}" alt="Animal Photo">
+
+        {% if result.adopted %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Animal ID <b>: {{ result.id }}</b>
+                    <span class="badge badge-danger">Adopted</span>
+                </li>
+                <li class="list-group-item">Category <b>: {{ result.category }}</b></li>
+                <li class="list-group-item">Gender <b>: {{ result.gender }}</b></li>
+            </ul>
+        {% else %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Animal ID <b>: {{ result.id }}</b></li>
+                <li class="list-group-item">Category <b>: {{ result.category }}</b></li>
+                <li class="list-group-item">Gender <b>: {{ result.gender }}</b></li>
+                
+                <a class="py-3" href="{% url 'adoptionForm' %}">
+                    <button class="btn btn-outline-danger" type="button">Send Adoption Request</button>
+                </a>
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="text-center mb-3">
+        <small class="text-muted">
+            Go back to the <a href="{% url 'showAnimals' %}">previous page</a>.
+        </small>
+    </div>
+    
+</div>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Animals</title>
+
+<div class="row row-cols-1 row-cols-md-3">
+    {% for animal in animals %}
+        <div class="card mt-3 text-center" style="width: 20rem;">
+            <img class="card-img-top" src="{{ animal.picture.url }}" alt="Animal Photo" width="100" height="300">
+
+            <ul class="list-group list-group-flush">
+                {% if animal.adopted %}
+                    <li class="list-group-item">
+                        Category <b>: {{ animal.category }}</b>
+                        <span class="badge badge-danger">Adopted</span>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Category <b>: {{ animal.category }}</b></li>
+                {% endif %}
+
+                <a class="py-3" href="{{ animal.id }}">
+                    <button type="button" class="btn btn-warning">Show Details</button>
+                </a>
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
