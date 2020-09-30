@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>All Profiles</title>
+
+<div class="card border mt-3 border-info" style="width: 40rem;">
+    <div class="card-header text-center bg-dark text-white mb-3">
+        All Profiles
+    </div>
+
+    {% for profile in profiles %}
+        <div class="card" style="width: 25rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <img src="{{ profile.profile_picture.url }}" class="rounded float-left" alt="Profile Photo" width="100" height="100">
+
+                    {% if profile.user.is_staff %}
+                        <div class="text-center py-2">
+                            <b>{{ profile.full_name }}</b>
+                            <span class="badge badge-warning">Admin</span>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-2">
+                            <b>{{ profile.full_name}}</b>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="text-center py-2">
+                        <a href="{{ profile.id }}">
+                            <button class="btn btn-danger" type="button">View Profile</button>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

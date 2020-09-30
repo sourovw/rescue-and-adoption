@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Profile Info</title>
+
+<div class="card text-center mt-3 border-info" style="width: 40rem;">
+    <div class="card-header bg-dark text-white mb-3">
+        Profile Info
+    </div>
+    
+    <div class="card text-center" style="width: 25rem;">
+        <img class="card-img-top" src="{{ result.profile_picture.url }}" alt="Animal Photo">
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>@{{ result.user }}</b></li>
+            {% if result.user.is_staff %}
+                <li class="list-group-item">
+                    <b>{{ result.full_name }}</b>
+                    <span class="badge badge-warning">Admin</span>
+                </li>
+            {% else %}
+                <li class="list-group-item">
+                    <b>{{ result.full_name }}</b>
+                </li>
+            {% endif %}
+            <li class="list-group-item">{{ result.street }}, {{ result.city }} {{ result.zip_code }}</li>
+            <li class="list-group-item">Contact No <b>:</b> {{ result.contact_no }}</b></li>
+        </ul>
+    </div>
+
+    <div class="text-center mb-3">
+        <small class="text-muted">
+            Go back to the <a href="{% url 'showProfiles' %}">previous page</a>.
+        </small>
+    </div>
+    
+</div>
+
+{% endblock content %}
