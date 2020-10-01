@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Submitted forms</title>
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card border mt-3 border-info" style="width: 40rem;">
+            <div class="card-header text-center bg-dark text-white mb-3">
+                <span class="badge badge-warning">Active Rescue Forms</span>
+            </div>
+
+            {% for data in info %}
+                {% if not data.closed %}
+                    <div class="card" style="width: 30rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="text-center py-3">
+                                    Form ID <b>:</b> {{ data.id }}
+                                    <span class="badge badge-success">Pending</span>
+                                </div>
+                                
+                                <div class="text-center border-top py-3">
+                                    <a href="{{ data.id }}">
+                                        <button class="btn btn-warning" type="button">View Form</button>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-sm">
+        <div class="card border mt-3 border-info" style="width: 40rem;">
+            <div class="card-header text-center bg-dark text-white mb-3">
+                <span class="badge badge-warning">Closed Rescue Forms</span>
+            </div>
+
+            {% for data in info %}
+                {% if data.closed %}
+                    <div class="card" style="width: 30rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="text-center py-3">
+                                    Form ID <b>:</b> {{ data.id }}
+                                    <span class="badge badge-danger">Closed</span>
+                                </div>
+                                
+                                <div class="text-center border-top py-3">
+                                    <a href="{{ data.id }}">
+                                        <button class="btn btn-warning" type="button">View Form</button>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Form Info</title>
+
+<div class="card text-center mt-3 border-info" style="width: 45rem;">
+    <div class="card-header bg-dark text-white mb-3">
+        Form Info
+    </div>
+
+    <div class="card text-center" style="width: 30rem;">
+        <img class="card-img-top" src="{{ result.adopter_photo.url }}" alt="Adopter Photo">
+
+        <ul class="list-group list-group-flush">
+            {% if result.closed %}
+                <li class="list-group-item">
+                    <b>Form ID : {{ result.id }}</b>
+                    <span class="badge badge-danger">Closed</span>
+                </li>
+            {% else %}
+                <li class="list-group-item">
+                    <b>Form ID : {{ result.id }}</b>
+                    <span class="badge badge-success">Open</span>
+                </li>
+            {% endif %}
+            <li class="list-group-item"><b>Animal ID : {{ result.animal_id }}</b></li>
+            <li class="list-group-item">Submitted by <b>@{{ result.user }}</b></li>
+            <li class="list-group-item">Adopter Name <b>:</b> {{ result.adopter_name }}</li>
+            <li class="list-group-item">Address <b>:</b> {{ result.address }}, {{ result.address }} {{ result.zip_code}}</li>
+            <li class="list-group-item">Contact No <b>:</b> {{ result.contact_no }}</li>
+        </ul>
+    </div>
+
+    <div class="text-center mb-3">
+        <small class="text-muted">
+            Go back to the <a href="{% url 'submittedAdoptionForm' %}">previous page</a>.
+        </small>
+    </div>
+</div>
+
+{% endblock content %}
