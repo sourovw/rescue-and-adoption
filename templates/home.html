@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<title>Homepage</title>
+
+<div class="card text-center border mt-3" style="width: 93rem;">
+    <div class="container">
+        <img src="{% static '/logos/logo.png' %}" alt="Feature Photo" style="width:45%;">
+    </div>
+    
+    <div class="p-3 mb-5 text-danger">
+        <h5>Hello, Hooman! Welcome Here!</h5>
+        <h2>Animal Rescue and Aoption System</h2>
+    </div>
+</div>
+
+{% endblock content %}
